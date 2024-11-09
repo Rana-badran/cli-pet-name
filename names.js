@@ -1,4 +1,5 @@
 import inquirer from 'inquirer';
+import petNames from "./data/petNames"
 
 inquirer
   .prompt([
