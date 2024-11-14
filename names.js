@@ -8,31 +8,34 @@ const questions = [
 ]
 
 function getRandomFilteredName(petType, gender, nameType) {
+  
   const filterPetNames = petNames.filter(pet => {
+    return (
     pet.petType === petType &&
-    pet.gender === gender &&
-    pet.nameType === nameType
+    pet.gender.toLowerCase() === gender &&
+    pet.nameType === nameType)
 })
   if (filterPetNames.length === 0) {
-    return "sorry. No matches are found "
+    return "sorry. No matches are found"
   }
 const randomPet = Math.floor(Math.random()*filterPetNames.length)
 return filterPetNames[randomPet].name;
 }
 
+// the value property "name" in the question object becomes the "key" in the answer object 
 inquirer
   .prompt(questions).then(answers => {
   const {petType, gender, nameType} = answers
   const randomName = getRandomFilteredName(petType, gender, nameType)
-  console.log("Here is your pet name:", randomName);    
+  if (randomName === "sorry. No matches are found") {
+    console.log(randomName);
+  }
+  else {
+    console.log(`
+      Here is your pet name:  ${randomName}
+      `);   
+  }
   })
 
-  // .catch((error) => {
-  //   if (error.isTtyError) {
-  //     // Prompt couldn't be rendered in the current environment
-  //   } else {
-  //     // Something else went wrong
-  //   }
-  // });
   
   
